@@ -27,13 +27,13 @@ public class Matrix {
             setMatrix3D (matrix_3d);
         }
 
-//        else if ( (row == 4) && (column == 4) ) {
-//            this.row = row;
-//            this.column = column;
-//            matrix_3d = new int[row][column];
-//
-//            setMatrix4D (matrix_4d);
-//        }
+        else if ( (row == 4) && (column == 4) ) {
+            this.row = row;
+            this.column = column;
+            matrix_4d = new int[row][column];
+
+            setMatrix4D (matrix_4d);
+        }
 
         else {
             System.out.print("The determinant is: Undefined");
@@ -41,15 +41,10 @@ public class Matrix {
     }
 
     private void setMatrix2D (int[][] mat) {
-        int temp[][] = new int[row][column];
+        int temp[][];
         int ad, bc;
 
-        for (int i = 0; i < temp.length; i++) {
-            for (int k = 0; k < temp.length; k++) {
-                System.out.printf("Enter R%d: \n", i);
-                temp[i][k] = input.nextInt();
-            }
-        }
+        temp = getMatrix(mat);
 
         ad = temp[0][0] * temp[1][1];
         bc = temp[0][1] * temp[1][0];
@@ -59,20 +54,10 @@ public class Matrix {
     }
 
     private void setMatrix3D (int[][] mat) {
-        int temp[][] = new int[row][column];
+        int temp[][];
         int a, b, c, r1, r2, r3;
 
-        /**
-         * [ a b c
-         *   d e f
-         *   g h i ]
-         */
-        for (int i = 0; i < temp.length; i++) {
-            for (int k = 0; k < temp.length; k++) {
-                System.out.printf("Enter R%d: \n", i);
-                temp[i][k] = input.nextInt();
-            }
-        }
+        temp = getMatrix(mat);
 
         a = temp[0][0];
         b = temp[0][1];
@@ -87,7 +72,50 @@ public class Matrix {
         System.out.printf("The determinant is: %d", determinant);
     }
 
-//    private void setMatrix4D (int[][] mat) {
-//
-//    }
+    private void setMatrix4D (int[][] mat) {
+        int temp[][];
+        int a, b, c, d, r1, r2, r3, r4;
+
+        temp = getMatrix(mat);
+
+        /**
+         * [ a b c
+         *   d e f
+         *   g h i
+         *   j k l ]
+         */
+
+        a = temp[0][0];
+        b = temp[0][1];
+        c = temp[0][2];
+        d = temp[0][3];
+
+        r1 = a * ( (temp[1][1] * temp[2][2]) - (temp[1][2] * temp[2][1]) ); // + a * (ei - fh)
+        r2 = -b * ( (temp[1][0] * temp[2][2]) - (temp[1][2] * temp[2][0]) ); // - b * (di - fg)
+        r3 = c * ( (temp[1][0] * temp[2][1]) - (temp[1][1] * temp[2][0]) ); // + c * (dh - eg)
+        r4 = -d * ( (temp[1][0] * temp[2][1]) - (temp[1][1] * temp[2][0]) ); // + c * (dh - eg)
+
+        determinant = r1 + r2 + r3 - r4;
+
+        System.out.printf("The determinant is: %d", determinant);
+    }
+
+    /**
+     * This function takes the size of a matrix
+     * and sets asks for the values to be inputted.
+     *
+     * @param matrix
+     * @return matrix settled
+     */
+    private int[][] getMatrix (int[][] matrix) {
+        int temp[][] = new int[row][column];
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int k = 0; k < matrix.length; k++) {
+                System.out.printf("Enter R%d: \n", i);
+                temp[i][k] = input.nextInt();
+            }
+        }
+        return temp;
+    }
 }
