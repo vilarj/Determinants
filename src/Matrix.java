@@ -78,13 +78,6 @@ public class Matrix {
 
         temp = getMatrix(mat);
 
-        /**
-         * [ a b c
-         *   d e f
-         *   g h i
-         *   j k l ]
-         */
-
         a = temp[0][0];
         b = temp[0][1];
         c = temp[0][2];
@@ -112,7 +105,7 @@ public class Matrix {
 
         for (int i = 0; i < matrix.length; i++) {
             for (int k = 0; k < matrix.length; k++) {
-                System.out.printf("Enter R%d: \n", i);
+                System.out.printf("Enter R%d: \n", i+1);
                 temp[i][k] = input.nextInt();
             }
         }
